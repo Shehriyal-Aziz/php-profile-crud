@@ -1,3 +1,6 @@
+<?php
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,13 +26,16 @@
 /* page */
 body{
   background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+  
+  min-height:100vh;
+  
+  color:#111;
+  margin:0;
+}
+.content{
   display:flex;
   align-items:flex-start;
   justify-content:center;
-  min-height:100vh;
-  padding:40px 16px;
-  color:#111;
-  margin:0;
 }
 
 /* card */
@@ -196,7 +202,10 @@ body{
 </head>
 
 <body>
-
+  <?php
+    include('nav.php')
+    ?>
+<div class=" content container mt-4">
     <div class="profile-card">
   <h2>Make Profile</h2>
   <p class="hint">Add profile details below.</p>
@@ -241,6 +250,7 @@ body{
 
     <button type="submit" name="btn">Complete</button>
   </form>
+</div>
 </div>
 
     <?php
