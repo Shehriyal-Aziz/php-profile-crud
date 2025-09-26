@@ -9,7 +9,71 @@
     <!-- tailwind cdn -->
      <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
+   <style>
+ /* dfgr */
+     
 
+     .lambai {
+         width: 100%;
+     }
+
+     @media (max-width: 768px) {
+         .lambai {
+             width: 100%;
+         }
+     }
+
+     @media (max-width: 400px) {
+         .lambai {
+             width: 84%;
+         }
+
+         .btno {
+             font-size: .4rem;
+         }
+
+         .daba {
+             width: 56%;
+             display: flex;
+         }
+        }
+         @media (max-width: 320px) {
+         .lambai {
+             width: 100%;
+         }
+
+         .btno {
+             font-size: .5rem;
+         }
+
+         .daba {
+             width: 56%;
+             display: flex;
+         }
+        }
+ /* dfgrh */
+       nav {
+            position: fixed;
+            /* keeps it stuck on top */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            /* high z-index so nothing overlaps */
+        }
+
+        /* Sidebar already has fixed + z-40, that’s fine */
+
+        /* Push main content so it doesn’t hide behind sidebar or navbar */
+        .main-content {
+            /* margin-left: 260px; */
+            /* equal to sidebar width */
+            padding: 80px 20px 20px;
+            /* push down so it clears navbar height */
+            position: relative;
+            z-index: 1;
+        }
+   </style>
 </head>
 <body>
 
@@ -89,11 +153,12 @@
       </ul>
    </div>
 </aside>
-
-<div class="p-4 sm:ml-64">
     <?php
 include('../nav.php');
 ?>
+<div class="main-content">
+<div class="p-4 sm:ml-64">
+
    <div class=" mt-4  p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
       <div class="grid grid-cols-3 gap-4 mb-4">
          <div class="flex items-center justify-center h-24 rounded-sm bg-gray-50 dark:bg-gray-800">
@@ -193,6 +258,7 @@ include('../nav.php');
          </div>
       </div>
    </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
