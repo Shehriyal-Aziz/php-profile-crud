@@ -1,16 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact Us</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
-    <?php
-    include('nav.php')
-    ?>
+  <?php
+  include('nav.php')
+  ?>
 
   <div class="container py-5">
     <div class="row justify-content-center">
@@ -41,26 +42,36 @@
 
               <!-- Submit -->
               <div class="d-grid">
-                <button type="submit" name="submit" class="btn btn-info text-white">
+                <button type="submit" name="csubmit" class="btn btn-info text-white">
                   Send Message
                 </button>
               </div>
             </form>
 
             <?php
-            // Simple PHP form handler
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-              $name = htmlspecialchars($_POST['name']);
-              $email = htmlspecialchars($_POST['email']);
-              $message = htmlspecialchars($_POST['message']);
+            include('connect.php');
 
-              if (!empty($name) && !empty($email) && !empty($message)) {
-                  echo '<div class="alert alert-success mt-3">Thank you, '. $name .'! Your message has been received.</div>';
-                  
-                  // Example: save to database OR send mail
-                  // mail("yourmail@example.com", "New Contact Message", $message, "From: $email");
+
+            if (isset($_POST['csubmit'])) {
+              $name = $_POST['name'];
+              $email = $_POST['email'];
+              $message = $_POST['message'];
+
+              if ($name == '' || $email == '' || $message == '') {
+                echo 'plz fill all feids';
               } else {
-                  echo '<div class="alert alert-danger mt-3">Please fill in all fields.</div>';
+                $query = "INSERT INTO `contact` (c_name, c_email, c_message) 
+                  VALUES ('$name', '$email', '$message')";
+                $q = mysqli_query($connection, $query);
+
+                if ($q) {
+                  echo "<script>
+                         alert('Saved!');
+                         window.location.href = 'index.php';
+                        </script>";
+                } else {
+                  echo "<script>alert('Error ');</script>";
+                }
               }
             }
             ?>
@@ -72,4 +83,5 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

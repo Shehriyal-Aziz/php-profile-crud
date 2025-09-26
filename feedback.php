@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,34 +10,38 @@
     body {
       background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
       min-height: 100vh;
-      
+
       color: #111;
       margin: 0;
     }
+
     .page-content {
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      
-      
+
+
     }
+
     .feedback-card {
       width: 100%;
       max-width: 600px;
       background: #fff;
       border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(25,25,25,0.06);
+      box-shadow: 0 6px 18px rgba(25, 25, 25, 0.06);
       padding: 22px;
       border: 1px solid #ddd;
       box-sizing: border-box;
-      
+
     }
+
     .feedback-card h2 {
       margin: 0 0 10px 0;
       font-size: 20px;
       font-weight: 600;
       color: #111;
     }
+
     .feedback-card .hint {
       color: #6c757d;
       font-size: 14px;
@@ -44,6 +49,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar include -->
@@ -88,36 +94,47 @@
 
         <!-- Submit -->
         <div class="d-grid">
-          <button type="submit" name="submit" class="btn btn-info text-white">Submit Feedback</button>
+          <button type="submit" name="fsubmit" class="btn btn-info text-white">Submit Feedback</button>
         </div>
       </form>
 
-      <!-- PHP handler -->
       <?php
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = htmlspecialchars($_POST['name']);
-        $email = htmlspecialchars($_POST['email']);
-        $rating = htmlspecialchars($_POST['rating']);
-        $message = htmlspecialchars($_POST['message']);
+      include('connect.php');
 
-        if (!empty($name) && !empty($email) && !empty($rating) && !empty($message)) {
-          echo '
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-  Thank you, '. $name .'! Your feedback has been submitted.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>';
 
-          
-          // Example: save to DB or send email
-          // mail("yourmail@example.com", "Feedback from $name", "Rating: $rating\n\n$message", "From: $email");
+      if (isset($_POST['fsubmit'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $rating = $_POST['rating'];
+        $message = $_POST['message'];
+
+        if ($name == '' || $email == '' || $rating == '' || $message == '') {
+          echo 'plz fill all feids';
         } else {
-          echo '<div class="alert alert-danger mt-3">Please fill in all fields.</div>';
+          $query = "INSERT INTO `feedback` (f_name, f_email, rating, f_message) 
+                  VALUES ('$name', '$email', '$rating', '$message')";
+          $q = mysqli_query($connection, $query);
+
+          if ($q) {
+            echo "<script>
+                         alert('Saved!');
+                         window.location.href = 'index.php';
+                        </script>";;
+          } else {
+            echo "<script>alert('Error saving feedback');</script>";
+          }
         }
       }
+
+
+
+
       ?>
+
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
